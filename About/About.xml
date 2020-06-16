@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>Ranged DPS</name>
+    <author>Pausbrak</author>
+    <packageId>Pausbrak.RangedDPS</packageId>
+    <url>https://github.com/RadHazard/RimworldRangedDPS</url>
+    <supportedVersions>
+        <li>1.1</li>
+    </supportedVersions>
+    <description>Finally, a way to easily compare ranged weapons!</description>
+</ModMetaData>
+
+git@github.com:RadHazard/RimworldRangedDPS.git

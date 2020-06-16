@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <StatDef>
+    <defName>RangedWeapon_DPS</defName>
+    <workerClass>RangedDPS.StatWorker_RangedDPS</workerClass>
+    <label>ranged damage per second</label>
+    <description>Average damage dealt per second in ranged combat, if all attacks hit.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5050</displayPriorityInCategory>
+  </StatDef>
+
+</Defs>

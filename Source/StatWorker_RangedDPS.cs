@@ -48,7 +48,7 @@ namespace RangedDPS
             float rawDps = GetRawDPS(shootVerb, currentWeaponUser, req.Thing);
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Average DPS accounting for weapon accuracy:"); //TODO TRANSLATE
+            stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
 
             for (int i = 5; i <= shootVerb.verbProps.range; i += 5)
             {
@@ -68,7 +68,6 @@ namespace RangedDPS
 
             return stringBuilder.ToString();
         }
-
 
         private static VerbUtility.VerbPropertiesWithSource GetShootVerb(ThingDef thingDef)
         {

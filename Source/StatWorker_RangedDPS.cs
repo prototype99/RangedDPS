@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using RimWorld;
 using Verse;
@@ -31,7 +32,16 @@ namespace RangedDPS
             Pawn currentWeaponUser = GetCurrentWeaponUser(req.Thing);
             var shootVerb = GetShootVerb(thingDef);
 
-            return GetRawDPS(shootVerb, currentWeaponUser, req.Thing);
+            float rawDps = GetRawDPS(shootVerb, currentWeaponUser, req.Thing);
+
+            float bestAccuracy = new[] {
+                req.Thing.GetStatValue(StatDefOf.AccuracyTouch),
+                req.Thing.GetStatValue(StatDefOf.AccuracyShort),
+                req.Thing.GetStatValue(StatDefOf.AccuracyMedium),
+                req.Thing.GetStatValue(StatDefOf.AccuracyLong)
+            }.Max();
+
+            return rawDps * bestAccuracy;
         }
 
         public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)

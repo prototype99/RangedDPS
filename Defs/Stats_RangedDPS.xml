@@ -5,7 +5,7 @@
     <defName>RangedWeapon_DPS</defName>
     <workerClass>RangedDPS.StatWorker_RangedDPS</workerClass>
     <label>ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat, if all attacks hit.</description>
+    <description>Average damage dealt per second in ranged combat at the optimal range of this weapon.</description>
     <category>Weapon</category>
     <defaultBaseValue>1</defaultBaseValue>
     <minValue>0</minValue>

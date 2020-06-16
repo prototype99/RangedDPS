@@ -54,7 +54,7 @@ namespace RangedDPS
             {
                 float hitChance = shootVerb.verbProps.GetHitChanceFactor(req.Thing, i);
                 float damage = rawDps * hitChance;
-                stringBuilder.AppendLine(string.Format("{0} {1,2}: {2:F2} ({3:P1})",
+                stringBuilder.AppendLine(string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
                     "distance".Translate().CapitalizeFirst(),
                     i, damage, hitChance));
             }
@@ -62,7 +62,7 @@ namespace RangedDPS
             // Max Range
             float maxRangeHitChance = shootVerb.verbProps.GetHitChanceFactor(req.Thing, shootVerb.verbProps.range);
             float maxRangeDamage = rawDps * maxRangeHitChance;
-            stringBuilder.AppendLine(string.Format("{0} {1,2}:  {2:F2} ({3:P1})",
+            stringBuilder.AppendLine(string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
                     "distance".Translate().CapitalizeFirst(),
                     shootVerb.verbProps.range, maxRangeDamage, maxRangeHitChance));
 

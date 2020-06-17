@@ -12,19 +12,17 @@ namespace RangedDPS
             {
                 return false;
             }
-            if (!thingDef.IsWeapon && !thingDef.isTechHediff)
-            {
-                return false;
-            }
-            return thingDef.IsRangedWeapon;
+
+            var shootVerb = GetShootVerb(thingDef);
+            return shootVerb != null;
         }
 
         protected static VerbProperties GetShootVerb(ThingDef thingDef)
         {
             // Note - the game uses the first shoot verb and ignores the rest for whatever reason.  Do the same here
-            return (from verb in thingDef.Verbs
-                    where !verb.IsMeleeAttack
-                    select verb).FirstOrDefault();
+            return (from v in thingDef.Verbs
+                    where !v.IsMeleeAttack
+                    select v).FirstOrDefault();
         }
 
         protected float GetRawDPS(VerbProperties shootVerb, Thing thing)

@@ -53,20 +53,19 @@ namespace RangedDPS
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
 
-            float minRange = shootVerb.EffectiveMinRange(false);
-
-            //MinRange
-            float minRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, shootVerb.minRange);
+            // Min Range
+            float minRange = Math.Max(shootVerb.minRange, 3f);
+            float minRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, minRange);
             float minRangeDps = rawDps * minRangeHitChance;
-            stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.minRange, minRangeDps, minRangeHitChance));
+            stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));
 
-            float startRange = (float)Math.Ceiling(shootVerb.minRange / 5) * 5;
-
+            // Ranges between Min - Max, in steps of 5
+            float startRange = (float)Math.Ceiling(minRange / 5) * 5;
             for (float i = startRange; i <= shootVerb.range; i += 5)
             {
                 float hitChance = shootVerb.GetHitChanceFactor(req.Thing, i);
                 float dps = rawDps * hitChance;
-                stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.minRange, dps, hitChance));
+                stringBuilder.AppendLine(FormatDPSRangeString(i, dps, hitChance));
             }
 
             // Max Range

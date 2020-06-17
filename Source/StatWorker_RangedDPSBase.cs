@@ -35,5 +35,12 @@ namespace RangedDPS
             return totalDamage / fullCycleTime;
         }
 
+        protected string FormatDPSRangeString(float range, float dps, float hitChance)
+        {
+            return string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
+                    "distance".Translate().CapitalizeFirst(),
+                    range, dps, hitChance);
+        }
+
     }
 }

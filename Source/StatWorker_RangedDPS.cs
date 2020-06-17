@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using RimWorld;
 using Verse;
@@ -52,21 +53,26 @@ namespace RangedDPS
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
 
-            for (int i = 5; i <= shootVerb.range; i += 5)
+            float minRange = shootVerb.EffectiveMinRange(false);
+
+            //MinRange
+            float minRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, shootVerb.minRange);
+            float minRangeDps = rawDps * minRangeHitChance;
+            stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.minRange, minRangeDps, minRangeHitChance));
+
+            float startRange = (float)Math.Ceiling(shootVerb.minRange / 5) * 5;
+
+            for (float i = startRange; i <= shootVerb.range; i += 5)
             {
                 float hitChance = shootVerb.GetHitChanceFactor(req.Thing, i);
-                float damage = rawDps * hitChance;
-                stringBuilder.AppendLine(string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
-                    "distance".Translate().CapitalizeFirst(),
-                    i, damage, hitChance));
+                float dps = rawDps * hitChance;
+                stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.minRange, dps, hitChance));
             }
 
             // Max Range
             float maxRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, shootVerb.range);
-            float maxRangeDamage = rawDps * maxRangeHitChance;
-            stringBuilder.AppendLine(string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
-                    "distance".Translate().CapitalizeFirst(),
-                    shootVerb.range, maxRangeDamage, maxRangeHitChance));
+            float maxRangeDps = rawDps * maxRangeHitChance;
+            stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.range, maxRangeDps, maxRangeHitChance));
 
             return stringBuilder.ToString();
         }

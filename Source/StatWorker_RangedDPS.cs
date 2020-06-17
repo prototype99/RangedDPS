@@ -10,19 +10,12 @@ namespace RangedDPS
     {
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
-            ThingDef thingDef = req.Def as ThingDef;
-            if (thingDef == null)
+            if (!ShouldShowFor(req))
             {
                 return 0f;
             }
 
-            var shootVerb = GetShootVerb(thingDef);
-            if (shootVerb == null)
-            {
-                return 0f;
-            }
-
-            float rawDps = GetRawDPS(shootVerb, req.Thing);
+            float rawDps = GetRawDPS(req.Thing);
 
             float bestAccuracy = new[] {
                 req.Thing.GetStatValue(StatDefOf.AccuracyTouch),
@@ -36,44 +29,12 @@ namespace RangedDPS
 
         public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)
         {
-            ThingDef thingDef = req.Def as ThingDef;
-            if (thingDef == null)
+            if (!ShouldShowFor(req))
             {
-                return null;
+                return "";
             }
 
-            var shootVerb = GetShootVerb(thingDef);
-            if (shootVerb == null)
-            {
-                return null;
-            }
-
-            float rawDps = GetRawDPS(shootVerb, req.Thing);
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
-
-            // Min Range
-            float minRange = Math.Max(shootVerb.minRange, 3f);
-            float minRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, minRange);
-            float minRangeDps = rawDps * minRangeHitChance;
-            stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));
-
-            // Ranges between Min - Max, in steps of 5
-            float startRange = (float)Math.Ceiling(minRange / 5) * 5;
-            for (float i = startRange; i <= shootVerb.range; i += 5)
-            {
-                float hitChance = shootVerb.GetHitChanceFactor(req.Thing, i);
-                float dps = rawDps * hitChance;
-                stringBuilder.AppendLine(FormatDPSRangeString(i, dps, hitChance));
-            }
-
-            // Max Range
-            float maxRangeHitChance = shootVerb.GetHitChanceFactor(req.Thing, shootVerb.range);
-            float maxRangeDps = rawDps * maxRangeHitChance;
-            stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.range, maxRangeDps, maxRangeHitChance));
-
-            return stringBuilder.ToString();
+            return DPSRangeBreakdown(req.Thing);
         }
 
     }

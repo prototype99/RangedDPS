@@ -7,19 +7,12 @@ namespace RangedDPS
     {
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
-            ThingDef thingDef = req.Def as ThingDef;
-            if (thingDef == null)
+            if (!ShouldShowFor(req))
             {
                 return 0f;
             }
 
-            var shootVerb = GetShootVerb(thingDef);
-            if (shootVerb == null)
-            {
-                return 0f;
-            }
-
-            return GetRawDPS(shootVerb, req.Thing);
+            return GetRawDPS(req.Thing);
         }
 
     }

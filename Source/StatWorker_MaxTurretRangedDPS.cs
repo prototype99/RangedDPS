@@ -9,26 +9,14 @@ namespace RangedDPS
 
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
-            ThingDef thingDef = req.Def as ThingDef;
-            if (thingDef == null)
+            if (!ShouldShowFor(req))
             {
                 return 0f;
             }
 
-            var weaponDef = thingDef?.building?.turretGunDef;
-            if (weaponDef == null)
-            {
-                return 0f;
-            }
+            Thing turretGun = (req.Thing as Building_TurretGun).gun;
 
-            var shootVerb = GetShootVerb(weaponDef);
-            if (shootVerb == null)
-            {
-                return 0f;
-            }
-
-            return GetTurretRawDPS(shootVerb, weaponDef);
+            return GetRawDPS(turretGun);
         }
-
     }
 }

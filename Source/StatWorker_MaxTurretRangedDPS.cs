@@ -3,8 +3,10 @@ using Verse;
 
 namespace RangedDPS
 {
-    public class StatWorker_MaxRangedDPS : StatWorker_RangedDPSBase
+
+    public class StatWorker_MaxTurretRangedDPS : StatWorker_TurretRangedDPSBase
     {
+
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
             if (!ShouldShowFor(req))
@@ -12,8 +14,9 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return GetRawDPS(req.Thing);
-        }
+            Thing turretGun = (req.Thing as Building_TurretGun).gun;
 
+            return GetRawDPS(turretGun);
+        }
     }
 }

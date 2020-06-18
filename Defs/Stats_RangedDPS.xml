@@ -5,13 +5,52 @@
     <defName>RangedWeapon_DPS</defName>
     <workerClass>RangedDPS.StatWorker_RangedDPS</workerClass>
     <label>ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat at the optimal range of this weapon.</description>
+    <description>Average damage dealt per second in ranged combat at the optimal range of this weapon.  This doesn't factor in the shooter's skill, so actual damage will be less</description>
     <category>Weapon</category>
-    <defaultBaseValue>1</defaultBaseValue>
+    <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
     <forInformationOnly>true</forInformationOnly>
     <displayPriorityInCategory>5050</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>RangedWeapon_MaxDPS</defName>
+    <workerClass>RangedDPS.StatWorker_MaxRangedDPS</workerClass>
+    <label>max ranged damage per second</label>
+    <description>Average damage dealt per second in ranged combat, assuming all shots hit.  This doesn't factor in the shooter's skill or the inherent accuracy of the weapon, so actual damage will be less</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5051</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>RangedTurret_DPS</defName>
+    <workerClass>RangedDPS.StatWorker_TurretRangedDPS</workerClass>
+    <label>ranged damage per second</label>
+    <description>Average damage dealt per second in ranged combat at the optimal range of this turret.  This doesn't factor in the shooting ability of the turret, so actual damage will be less</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5050</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>RangedTurret_MaxDPS</defName>
+    <workerClass>RangedDPS.StatWorker_MaxTurretRangedDPS</workerClass>
+    <label>max ranged damage per second</label>
+    <description>Average damage dealt per second in ranged combat, assuming all shots hit.  This doesn't factor in the shooting ability of the turret the inherent accuracy of the weapon, so actual damage will be less</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5051</displayPriorityInCategory>
   </StatDef>
 
 </Defs>

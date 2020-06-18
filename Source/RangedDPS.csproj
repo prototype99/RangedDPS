@@ -44,6 +44,11 @@
   <ItemGroup>
     <Compile Include="StatWorker_RangedDPS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatWorker_RangedDPSBase.cs" />
+    <Compile Include="StatWorker_MaxRangedDPS.cs" />
+    <Compile Include="StatWorker_TurretRangedDPS.cs" />
+    <Compile Include="StatWorker_TurretRangedDPSBase.cs" />
+    <Compile Include="StatWorker_MaxTurretRangedDPS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

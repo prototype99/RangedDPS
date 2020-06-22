@@ -12,8 +12,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing thing = req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
-            return GetRawDPS(thing);
+            return GetRawDPS(GetWeaponThing(req));
         }
 
     }

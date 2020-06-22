@@ -13,7 +13,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing thing = req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
+            Thing thing = GetWeaponThing(req);
             float rawDps = GetRawDPS(thing);
 
             float bestAccuracy = new[] {
@@ -33,8 +33,7 @@ namespace RangedDPS
                 return "";
             }
 
-            Thing thing = req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
-            return DPSRangeBreakdown(thing);
+            return DPSRangeBreakdown(GetWeaponThing(req));
         }
 
     }

@@ -29,7 +29,12 @@ namespace RangedDPS
                     select v).FirstOrDefault();
         }
 
-        protected float GetRawDPS(Thing thing)
+        protected static Thing GetWeaponThing(StatRequest req)
+        {
+            return req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
+        }
+
+        protected static float GetRawDPS(Thing thing)
         {
             var shootVerb = GetShootVerb(thing.def);
 
@@ -41,7 +46,7 @@ namespace RangedDPS
             return totalDamage / fullCycleTime;
         }
 
-        protected string DPSRangeBreakdown(Thing gun)
+        protected static string DPSRangeBreakdown(Thing gun)
         {
             float rawDps = GetRawDPS(gun);
             var shootVerb = GetShootVerb(gun.def);
@@ -72,7 +77,7 @@ namespace RangedDPS
             return stringBuilder.ToString();
         }
 
-        protected string FormatDPSRangeString(float range, float dps, float hitChance)
+        protected static string FormatDPSRangeString(float range, float dps, float hitChance)
         {
             return string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
                     "distance".Translate().CapitalizeFirst(),

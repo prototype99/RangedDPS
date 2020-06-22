@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Verse;
 
 namespace RangedDPS
 {
@@ -11,7 +12,8 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return GetRawDPS(req.Thing);
+            Thing thing = req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
+            return GetRawDPS(thing);
         }
 
     }

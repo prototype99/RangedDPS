@@ -20,3 +20,12 @@
 # v1.1.1 - Hotfix
 **Bugfixes**
 - Replaced the bad assembly that was uploaded in v1.1.0 by accident.  Should fix the null pointer exceptions
+
+# v1.1.2 - Hotfix
+**Bugfixes**
+- Fixed an issue that caused a null pointer exception to be thrown when looking at an abstract ThingDef (e.g. in the Prepare Carefully screen)
+- Fixed the turret support to work with mortars and similar ammunition-using turrets.
+- Added several sanity checks with verbose error messages to hopefully catch the most common null pointer exceptions
+
+**Known Issues**
+- Turrets with swappable ammunition (e.g. mortars) will only show their DPS when loaded with ammunition.  This is a technical limitation due to there being no easy way to get a sane default ammunition.

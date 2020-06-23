@@ -31,17 +31,23 @@ namespace RangedDPS
 
         protected static Thing GetWeaponThing(StatRequest req)
         {
-            return req.Thing ?? (req.Def as ThingDef).GetConcreteExample();
+            return req.Thing ?? (req.Def as ThingDef)?.GetConcreteExample();
         }
 
         protected static float GetRawDPS(Thing thing)
         {
             var shootVerb = GetShootVerb(thing.def);
 
+            // Get the damage from the loaded projectile first (for loadable weapons) or the default projectile otherwise
+            var projectile = thing.TryGetComp<CompChangeableProjectile>()?.Projectile?.projectile
+                    ?? shootVerb?.defaultProjectile?.projectile;
+            // Default to zero damage if we can't find a projectile.
+            // Not an error as unloaded mortars don't have projectiles
+            int damage = projectile?.GetDamageAmount(thing) ?? 0; 
+
             float fullCycleTime = shootVerb.warmupTime + thing.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true)
                     + ((shootVerb.burstShotCount - 1) * shootVerb.ticksBetweenBurstShots).TicksToSeconds();
-
-            int totalDamage = shootVerb.burstShotCount * shootVerb.defaultProjectile.projectile.GetDamageAmount(thing);
+            int totalDamage = shootVerb.burstShotCount * damage;
 
             return totalDamage / fullCycleTime;
         }

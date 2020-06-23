@@ -14,9 +14,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing turretGun = (req.Thing as Building_TurretGun).gun;
-
-            return GetRawDPS(turretGun);
+            return GetRawDPS(GetTurretThing(req));
         }
     }
 }

@@ -24,24 +24,40 @@ namespace RangedDPS
         protected static VerbProperties GetShootVerb(ThingDef thingDef)
         {
             // Note - the game uses the first shoot verb and ignores the rest for whatever reason.  Do the same here
-            return (from v in thingDef.Verbs
-                    where !v.IsMeleeAttack
-                    select v).FirstOrDefault();
+            var shootVerb = (from v in thingDef.Verbs
+                             where !v.IsMeleeAttack
+                             select v).FirstOrDefault();
+            if (shootVerb == null) Log.Error($"[RangedDPS] Could not find a valid shoot verb for ThingDef {thingDef.defName}");
+            return shootVerb;
         }
 
-        protected float GetRawDPS(Thing thing)
+        protected static Thing GetWeaponThing(StatRequest req)
         {
+            Thing weapon = req.Thing ?? (req.Def as ThingDef)?.GetConcreteExample();
+            if (weapon == null) Log.Error($"[RangedDPS] Could not find a valid weapon thing when trying to caluculate the stat for {req.Def.defName}");
+            return weapon;
+        }
+
+        protected static float GetRawDPS(Thing thing)
+        {
+            if (thing == null) Log.Error($"[RangedDPS] Tried to get the DPS of a null Thing");
             var shootVerb = GetShootVerb(thing.def);
+
+            // Get the damage from the loaded projectile first (for loadable weapons) or the default projectile otherwise
+            var projectile = thing.TryGetComp<CompChangeableProjectile>()?.Projectile?.projectile
+                    ?? shootVerb?.defaultProjectile?.projectile;
+            // Default to zero damage if we can't find a projectile.
+            // Not an error as unloaded mortars don't have projectiles
+            int damage = projectile?.GetDamageAmount(thing) ?? 0;
 
             float fullCycleTime = shootVerb.warmupTime + thing.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true)
                     + ((shootVerb.burstShotCount - 1) * shootVerb.ticksBetweenBurstShots).TicksToSeconds();
-
-            int totalDamage = shootVerb.burstShotCount * shootVerb.defaultProjectile.projectile.GetDamageAmount(thing);
+            int totalDamage = shootVerb.burstShotCount * damage;
 
             return totalDamage / fullCycleTime;
         }
 
-        protected string DPSRangeBreakdown(Thing gun)
+        protected static string DPSRangeBreakdown(Thing gun)
         {
             float rawDps = GetRawDPS(gun);
             var shootVerb = GetShootVerb(gun.def);
@@ -57,7 +73,7 @@ namespace RangedDPS
 
             // Ranges between Min - Max, in steps of 5
             float startRange = (float)Math.Ceiling(minRange / 5) * 5;
-            for (float i = startRange; i <= shootVerb.range; i += 5)
+            for (float i = startRange; i < shootVerb.range; i += 5)
             {
                 float hitChance = shootVerb.GetHitChanceFactor(gun, i);
                 float dps = rawDps * hitChance;
@@ -72,7 +88,7 @@ namespace RangedDPS
             return stringBuilder.ToString();
         }
 
-        protected string FormatDPSRangeString(float range, float dps, float hitChance)
+        protected static string FormatDPSRangeString(float range, float dps, float hitChance)
         {
             return string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
                     "distance".Translate().CapitalizeFirst(),

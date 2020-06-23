@@ -13,13 +13,14 @@ namespace RangedDPS
                 return 0f;
             }
 
-            float rawDps = GetRawDPS(req.Thing);
+            Thing thing = GetWeaponThing(req);
+            float rawDps = GetRawDPS(thing);
 
             float bestAccuracy = new[] {
-                req.Thing.GetStatValue(StatDefOf.AccuracyTouch),
-                req.Thing.GetStatValue(StatDefOf.AccuracyShort),
-                req.Thing.GetStatValue(StatDefOf.AccuracyMedium),
-                req.Thing.GetStatValue(StatDefOf.AccuracyLong)
+                thing.GetStatValue(StatDefOf.AccuracyTouch),
+                thing.GetStatValue(StatDefOf.AccuracyShort),
+                thing.GetStatValue(StatDefOf.AccuracyMedium),
+                thing.GetStatValue(StatDefOf.AccuracyLong)
             }.Max();
 
             return rawDps * bestAccuracy;
@@ -32,7 +33,7 @@ namespace RangedDPS
                 return "";
             }
 
-            return DPSRangeBreakdown(req.Thing);
+            return DPSRangeBreakdown(GetWeaponThing(req));
         }
 
     }

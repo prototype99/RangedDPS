@@ -15,8 +15,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing turretGun = (req.Thing as Building_TurretGun).gun;
-
+            Thing turretGun = GetTurretThing(req);
             float rawDps = GetRawDPS(turretGun);
 
             float bestAccuracy = new[] {
@@ -36,9 +35,7 @@ namespace RangedDPS
                 return "";
             }
 
-            Thing turretGun = (req.Thing as Building_TurretGun).gun;
-
-            return DPSRangeBreakdown(turretGun);
+            return DPSRangeBreakdown(GetTurretThing(req));
         }
 
     }

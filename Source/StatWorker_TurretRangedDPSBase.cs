@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Verse;
 
 namespace RangedDPS
 {
@@ -6,7 +7,14 @@ namespace RangedDPS
     {
         public override bool ShouldShowFor(StatRequest req)
         {
-            return req.Thing is Building_TurretGun turret && ThingDefIsShooty(turret?.gun?.def);
+            return req.Def is ThingDef thingDef && ThingDefIsShooty(thingDef?.building?.turretGunDef);
+        }
+
+        protected static Thing GetTurretThing(StatRequest req)
+        {
+            if (req.Thing is Building_TurretGun turret)
+                return turret.gun;
+            return (req.Def as ThingDef)?.building?.turretGunDef?.GetConcreteExample();
         }
     }
 }

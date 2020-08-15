@@ -6,6 +6,7 @@
     <url>https://github.com/RadHazard/RimworldRangedDPS</url>
     <supportedVersions>
         <li>1.1</li>
+        <li>1.2</li>
     </supportedVersions>
     <description>Finally, a way to easily compare ranged weapons and turrets!</description>
 </ModMetaData>

@@ -3,7 +3,7 @@ using Verse;
 
 namespace RangedDPS
 {
-    public class StatWorker_MaxRangedDPS : StatWorker_RangedDPSBase
+    public class StatWorker_RangedMaxDPS : StatWorker_RangedDPSBase
     {
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {

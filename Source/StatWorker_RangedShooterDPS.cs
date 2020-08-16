@@ -4,8 +4,17 @@ using Verse;
 
 namespace RangedDPS
 {
-    public class StatWorker_RangedWeaponDPS : StatWorker_RangedDPSBase
+    public class StatWorker_RangedShooterDPS : StatWorker_RangedDPSBase
     {
+        public override bool IsDisabledFor(Thing thing)
+        {
+            if (!base.IsDisabledFor(thing))
+            {
+                return StatDefOf.MeleeHitChance.Worker.IsDisabledFor(thing);
+            }
+            return true;
+        }
+
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
             if (!ShouldShowFor(req))

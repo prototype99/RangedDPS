@@ -3,7 +3,7 @@ using Verse;
 
 namespace RangedDPS
 {
-    public class StatWorker_TurretRangedDPSBase : StatWorker_RangedDPSBase
+    public class StatWorker_TurretDPSBase : StatWorker_RangedDPSBase
     {
         public override bool ShouldShowFor(StatRequest req)
         {

@@ -5,7 +5,7 @@ using Verse;
 namespace RangedDPS
 {
 
-    public class StatWorker_TurretRangedDPS : StatWorker_TurretRangedDPSBase
+    public class StatWorker_TurretWeaponDPS : StatWorker_TurretDPSBase
     {
 
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)

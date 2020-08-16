@@ -37,7 +37,7 @@
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
     <forInformationOnly>true</forInformationOnly>
-    <displayPriorityInCategory>5101</displayPriorityInCategory>
+    <displayPriorityInCategory>4051</displayPriorityInCategory>
   </StatDef>
 
   <StatDef>

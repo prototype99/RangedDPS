@@ -14,7 +14,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return GetRawDPS(GetTurretThing(req));
+            return DPSCalculator.GetRawRangedDPS(GetTurretThing(req));
         }
     }
 }

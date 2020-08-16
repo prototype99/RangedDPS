@@ -7,7 +7,7 @@ namespace RangedDPS
     {
         public override bool ShouldShowFor(StatRequest req)
         {
-            if (!(req.Def is ThingDef thingDef && ThingDefIsShooty(thingDef?.building?.turretGunDef)))
+            if (!(req.Def is ThingDef thingDef && (thingDef?.building?.turretGunDef?.IsRangedWeapon ?? false)))
             {
                 return false;
             }

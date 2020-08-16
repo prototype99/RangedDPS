@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using Verse;
 
 namespace RangedDPS
 {
@@ -12,7 +11,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return GetRawDPS(GetWeaponThing(req));
+            return DPSCalculator.GetRawRangedDPS(GetWeaponThing(req));
         }
 
     }

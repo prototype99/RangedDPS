@@ -16,7 +16,7 @@ namespace RangedDPS
             }
 
             Thing turretGun = GetTurretThing(req);
-            float rawDps = GetRawDPS(turretGun);
+            float rawDps = DPSCalculator.GetRawRangedDPS(turretGun);
 
             float bestAccuracy = new[] {
                 turretGun.GetStatValue(StatDefOf.AccuracyTouch),

@@ -50,6 +50,7 @@
     <Compile Include="StatWorker_TurretDPSBase.cs" />
     <Compile Include="StatWorker_TurretMaxDPS.cs" />
     <Compile Include="StatWorker_RangedShooterDPS.cs" />
+    <Compile Include="DPSCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

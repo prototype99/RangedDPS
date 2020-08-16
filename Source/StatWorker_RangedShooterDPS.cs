@@ -23,7 +23,7 @@ namespace RangedDPS
             }
 
             Thing thing = GetWeaponThing(req);
-            float rawDps = GetRawDPS(thing);
+            float rawDps = DPSCalculator.GetRawRangedDPS(thing);
 
             float bestAccuracy = new[] {
                 thing.GetStatValue(StatDefOf.AccuracyTouch),

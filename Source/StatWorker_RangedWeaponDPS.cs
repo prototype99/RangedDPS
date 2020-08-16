@@ -6,6 +6,15 @@ namespace RangedDPS
 {
     public class StatWorker_RangedWeaponDPS : StatWorker_RangedDPSBase
     {
+        public override bool ShouldShowFor(StatRequest req)
+        {
+            if (base.ShouldShowFor(req))
+            {
+                return req.Def is ThingDef thingDef && thingDef.IsRangedWeapon;
+            }
+            return false;
+        }
+
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
             if (!ShouldShowFor(req))

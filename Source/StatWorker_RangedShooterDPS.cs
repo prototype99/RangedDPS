@@ -10,12 +10,11 @@ namespace RangedDPS
 
         public override bool ShouldShowFor(StatRequest req)
         {
-            // FIXME - we can't check the base class because at the moment the base class assumes a ranged weapon
-            //if (base.ShouldShowFor(req))
-            //{
+            if (base.ShouldShowFor(req))
+            {
                 return req.Thing is Pawn pawn && (pawn?.equipment?.Primary?.def?.IsRangedWeapon ?? false);
-            //}
-            //return false;
+            }
+            return false;
         }
 
         public override bool IsDisabledFor(Thing thing)

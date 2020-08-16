@@ -36,10 +36,6 @@
       <HintPath>..\..\..\..\..\..\mnt\electromagic\SteamLibrary\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>packages\Lib.Harmony.2.0.1\lib\net45\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="StatWorker_RangedWeaponDPS.cs" />
@@ -52,9 +48,6 @@
     <Compile Include="StatWorker_RangedShooterDPS.cs" />
     <Compile Include="DPSCalculator.cs" />
     <Compile Include="StatWorker_TurretShooterDPS.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

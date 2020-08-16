@@ -7,15 +7,6 @@ namespace RangedDPS
 {
     public class StatWorker_RangedDPSBase : StatWorker
     {
-        public override bool ShouldShowFor(StatRequest req)
-        {
-            if (base.ShouldShowFor(req))
-            {
-                return req.Def is ThingDef thingDef && thingDef.IsRangedWeapon;
-            }
-            return false;
-        }
-
         protected static Thing GetWeaponThing(StatRequest req)
         {
             Thing weapon = req.Thing ?? (req.Def as ThingDef)?.GetConcreteExample();

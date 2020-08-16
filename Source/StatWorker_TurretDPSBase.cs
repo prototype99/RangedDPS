@@ -35,21 +35,5 @@ namespace RangedDPS
         {
             return GetTurret(req).gun;
         }
-
-        //protected static Thing GetTurretWeapon(StatRequest req)
-        //{
-        //    Thing turretGun;
-        //    if (req.Thing is Building_TurretGun turret)
-        //    {
-        //        turretGun = turret.gun;
-        //    }
-        //    else
-        //    {
-        //        turretGun = (req.Def as ThingDef)?.building?.turretGunDef?.GetConcreteExample();
-        //    }
-
-        //    if (turretGun == null) Log.Error($"[RangedDPS] Turret {req.Def.defName} has no turret gun defined");
-        //    return turretGun;
-        //}
     }
 }

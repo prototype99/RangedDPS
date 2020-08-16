@@ -3,9 +3,9 @@
 
   <StatDef>
     <defName>RangedWeapon_DPS</defName>
-    <workerClass>RangedDPS.StatWorker_RangedDPS</workerClass>
-    <label>ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat at the optimal range of this weapon.  This doesn't factor in the shooter's skill, so actual damage will be less</description>
+    <workerClass>RangedDPS.StatWorker_RangedWeaponDPS</workerClass>
+    <label>weapon ranged DPS</label>
+    <description>Maximum potential damage dealt per second in ranged combat at the optimal range of this weapon.\n\nThis stat doesn't factor in the shooter's skill or target defenses like cover and armor, so the actual value will be lower.</description>
     <category>Weapon</category>
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
@@ -16,9 +16,9 @@
 
   <StatDef>
     <defName>RangedWeapon_MaxDPS</defName>
-    <workerClass>RangedDPS.StatWorker_MaxRangedDPS</workerClass>
-    <label>max ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat, assuming all shots hit.  This doesn't factor in the shooter's skill or the inherent accuracy of the weapon, so actual damage will be less</description>
+    <workerClass>RangedDPS.StatWorker_RangedMaxDPS</workerClass>
+    <label>max ranged DPS</label>
+    <description>Maximum potential damage dealt per second in ranged combat, assuming all shots were to hit.\n\nThis stat doesn't factor in accuracy or target defenses like cover and armor, so the actual value will be lower.</description>
     <category>Weapon</category>
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
@@ -28,10 +28,23 @@
   </StatDef>
 
   <StatDef>
+    <defName>RangedWeapon_PawnDPS</defName>
+    <workerClass>RangedDPS.StatWorker_RangedShooterDPS</workerClass>
+    <label>ranged DPS</label>
+    <description>Average damage per second in ranged combat, factoring in both the weapon and the shooter's skills.\n\nThis stat doesn't factor in target defenses like cover and armor.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5101</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
     <defName>RangedTurret_DPS</defName>
-    <workerClass>RangedDPS.StatWorker_TurretRangedDPS</workerClass>
-    <label>ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat at the optimal range of this turret.  This doesn't factor in the shooting ability of the turret, so actual damage will be less</description>
+    <workerClass>RangedDPS.StatWorker_TurretWeaponDPS</workerClass>
+    <label>weapon ranged DPS</label>
+    <description>Maximum potential damage dealt per second in ranged combat at the optimal range of this turret's weapon.\n\nThis stat doesn't factor in the turret's shooting accuracy or target defenses like cover and armor, so the actual value will be lower.</description>
     <category>Weapon</category>
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
@@ -42,9 +55,9 @@
 
   <StatDef>
     <defName>RangedTurret_MaxDPS</defName>
-    <workerClass>RangedDPS.StatWorker_MaxTurretRangedDPS</workerClass>
+    <workerClass>RangedDPS.StatWorker_TurretMaxDPS</workerClass>
     <label>max ranged damage per second</label>
-    <description>Average damage dealt per second in ranged combat, assuming all shots hit.  This doesn't factor in the shooting ability of the turret or the inherent accuracy of the weapon, so actual damage will be less</description>
+    <description>Maximum potential damage dealt per second in ranged combat, assuming all shots were to hit.\n\nThis stat doesn't factor in accuracy or target defenses like cover and armor, so the actual value will be lower.</description>
     <category>Weapon</category>
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>

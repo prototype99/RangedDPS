@@ -8,11 +8,11 @@ namespace RangedDPS
     {
 
         /// <summary>
-        /// Takes in a ThingDef and returns the same ranged attack verb that RimWorld will use
+        /// Takes in a ThingDef and returns the same ranged attack verb that RimWorld will use.
         /// (only the first ranged verb is used in vanilla)
         /// </summary>
-        /// <returns>The shoot verb of the passed-in ThingDef</returns>
-        /// <param name="thingDef">The ThingDef to get the shoot verb for</param>
+        /// <returns>The shoot verb of the passed-in ThingDef.</returns>
+        /// <param name="thingDef">The ThingDef to get the shoot verb for.</param>
         public static VerbProperties GetShootVerb(ThingDef thingDef)
         {
             if (thingDef == null)
@@ -36,10 +36,10 @@ namespace RangedDPS
 
         /// <summary>
         /// Gets the raw ranged DPS of a Thing (The DPS assuming all shots hit their target)
-        /// Logs an error and returns 0 if the thing is null or is not a ranged weapon
+        /// Logs an error and returns 0 if the thing is null or is not a ranged weapon.
         /// </summary>
-        /// <returns>The raw ranged DPS of the weapon</returns>
-        /// <param name="weapon">The Thing to get the DPS of</param>
+        /// <returns>The raw ranged DPS of the weapon.</returns>
+        /// <param name="weapon">The Thing to get the DPS of.</param>
         public static float GetRawRangedDPS(Thing weapon)
         {
             if (weapon == null)
@@ -69,17 +69,20 @@ namespace RangedDPS
         }
 
         /// <summary>
-        /// Gets the raw ranged DPS of a Thing (The DPS assuming all shots hit their target)
-        /// Logs an error and returns 0 if the thing is null or is not a ranged weapon
+        /// Gets the adjusted hit chance factor of a shot.  This is equivalent to shootVerb.GetHitChanceFactor() unless
+        /// a shooter is provided, in which case it will also be adjusted based on the shooter's hit chance.
         /// </summary>
-        /// <returns>The raw ranged DPS of the weapon</returns>
-        /// <param name="weapon">The Thing to get the DPS of</param>
-        public static float GetAdjustedHitChanceFactor(float range, VerbProperties shootVerb, Thing gun, Thing shooter = null)
+        /// <returns>The adjusted hit chance factor.</returns>
+        /// <param name="range">The range of the shot.</param>
+        /// <param name="shootVerb">The shoot verb used to shoot.</param>
+        /// <param name="weapon">The weapon used to shoot.</param>
+        /// <param name="shooter">(Optional) The turret or pawn shooting the weapon.</param>
+        public static float GetAdjustedHitChanceFactor(float range, VerbProperties shootVerb, Thing weapon, Thing shooter = null)
         {
-            float hitChance = shootVerb.GetHitChanceFactor(gun, range);
+            float hitChance = shootVerb.GetHitChanceFactor(weapon, range);
             if (shooter != null)
             {
-                //TODO
+                hitChance *= ShotReport.HitFactorFromShooter(shooter, range);
             }
 
             return hitChance;

@@ -35,8 +35,10 @@
 # v1.2.0 - Rimworld 1.2 support
 **Features**
 - Updated to Rimworld 1.2
-- Added a new "Ranged DPS" stat to pawns and turrets that accounts for their shooting ability in addition to everything else.  Turrets' old "Ranged damage per second" stat has been renamed to "Weapon ranged DPS" just like the equivalent stat on guns.
+- Added a new Ranged DPS stat to pawns and turrets that accounts for their shooting ability in addition to everything else.
+- The Ranged DPS and Average DPS stats now also shows the range at which their respective DPS is achieved.  As before, this is the range that maximizes DPS.
 
 **Changes**
-- "Ranged damage per second" has been renamed "Weapon ranged DPS" to more clearly indicate that it's based only on the stats of the weapon and not the shooter.
+- Turrets' old "Ranged damage per second" stat has been renamed to "Weapon ranged DPS", to make it clear it's only based on the turret's weapon and does not include the shooting accuracy of the mount.
+- "Ranged damage per second" for guns has been renamed "Average ranged DPS" to differentiate it from the "Ranged DPS" stat on pawns.
 - "Max ranged damage per second" has been renamed "Max ranged DPS" to be consistent with the other stat names

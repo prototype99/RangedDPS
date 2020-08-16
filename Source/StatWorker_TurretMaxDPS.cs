@@ -1,10 +1,11 @@
 ﻿using RimWorld;
-using Verse;
 
 namespace RangedDPS
 {
-    public class StatWorker_MaxRangedDPS : StatWorker_RangedDPSBase
+
+    public class StatWorker_TurretMaxDPS : StatWorker_TurretDPSBase
     {
+
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
             if (!ShouldShowFor(req))
@@ -12,8 +13,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return GetRawDPS(GetWeaponThing(req));
+            return DPSCalculator.GetRawRangedDPS(GetTurretWeapon(req));
         }
-
     }
 }

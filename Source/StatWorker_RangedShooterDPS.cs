@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -42,18 +41,23 @@ namespace RangedDPS
                 return 0f;
             }
 
-            float rawDps = DPSCalculator.GetRawRangedDPS(weapon);
+            var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
+            float bestRange = DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
 
-            // FIXME - the actual stat value doesn't yet account for shooter accuracy
+            return DPSCalculator.GetRawRangedDPS(weapon) * DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn);
+        }
 
-            float bestAccuracy = new[] {
-                weapon.GetStatValue(StatDefOf.AccuracyTouch),
-                weapon.GetStatValue(StatDefOf.AccuracyShort),
-                weapon.GetStatValue(StatDefOf.AccuracyMedium),
-                weapon.GetStatValue(StatDefOf.AccuracyLong)
-            }.Max();
+        public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)
+        {
+            Pawn pawn = optionalReq.Thing as Pawn;
+            Thing weapon = GetPawnWeapon(pawn);
+            var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
 
-            return rawDps * bestAccuracy;
+            int optimalRange = (int) DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
+
+            return string.Format("{0} ({1})",
+                value.ToStringByStyle(stat.toStringStyle, numberSense),
+                string.Format("StatsReport_RangedDPSOptimalRange".Translate(), optimalRange));
         }
 
         public override string GetExplanationUnfinalized(StatRequest req, ToStringNumberSense numberSense)

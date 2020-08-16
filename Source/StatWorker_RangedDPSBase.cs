@@ -30,7 +30,7 @@ namespace RangedDPS
             stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
 
             // Min Range
-            float minRange = Math.Max(shootVerb.minRange, 3f);
+            float minRange = Math.Max(shootVerb.minRange, 1f);
             float minRangeHitChance = DPSCalculator.GetAdjustedHitChanceFactor(minRange, shootVerb, gun, shooter);
             float minRangeDps = rawDps * minRangeHitChance;
             stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));

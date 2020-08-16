@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -86,6 +87,25 @@ namespace RangedDPS
             }
 
             return hitChance;
+        }
+
+        /// <summary>
+        /// Calculates and returns the optimal range of the given weapon (the range at which accuracy is highest).  If
+        /// shooter is provided, the calculation correctly accounts for the shooter's accuracy as well as that of the
+        /// weapon.
+        /// </summary>
+        /// <returns>
+        /// The range, in cells, at which this weapon performs best (for the <paramref name="shooter"/> if provided, or
+        /// in general if not).
+        /// </returns>
+        /// <param name="shootVerb">The shoot verb used to shoot.</param>
+        /// <param name="weapon">The weapon used to shoot.</param>
+        /// <param name="shooter">(Optional) The turret or pawn shooting the weapon.</param>
+        public static float FindOptimalRange(VerbProperties shootVerb, Thing weapon, Thing shooter = null)
+        {
+            int minRange = (int) Math.Max(1.0, Math.Ceiling(shootVerb.minRange));
+            int maxRange = (int) Math.Floor(shootVerb.range);
+            return Enumerable.Range(minRange, maxRange).MaxBy(r => GetAdjustedHitChanceFactor(r, shootVerb, weapon, shooter));
         }
     }
 }

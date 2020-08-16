@@ -13,7 +13,7 @@ namespace RangedDPS
             }
 
             // Don't show DPS for unloaded mortars
-            var comp = GetTurretThing(req).TryGetComp<CompChangeableProjectile>();
+            var comp = GetTurretWeapon(req).TryGetComp<CompChangeableProjectile>();
             if (comp != null)
             {
                 return comp.Loaded;
@@ -22,20 +22,34 @@ namespace RangedDPS
             return true;
         }
 
-        protected static Thing GetTurretThing(StatRequest req)
+        protected static Building_TurretGun GetTurret(StatRequest req)
         {
-            Thing turretGun;
             if (req.Thing is Building_TurretGun turret)
             {
-                turretGun = turret.gun;
+                return turret;
             }
-            else
-            {
-                turretGun = (req.Def as ThingDef)?.building?.turretGunDef?.GetConcreteExample();
-            }
-
-            if (turretGun == null) Log.Error($"[RangedDPS] Turret {req.Def.defName} has no turret gun defined");
-            return turretGun;
+            return (req.Def as ThingDef).GetConcreteExample() as Building_TurretGun;
         }
+
+        protected static Thing GetTurretWeapon(StatRequest req)
+        {
+            return GetTurret(req).gun;
+        }
+
+        //protected static Thing GetTurretWeapon(StatRequest req)
+        //{
+        //    Thing turretGun;
+        //    if (req.Thing is Building_TurretGun turret)
+        //    {
+        //        turretGun = turret.gun;
+        //    }
+        //    else
+        //    {
+        //        turretGun = (req.Def as ThingDef)?.building?.turretGunDef?.GetConcreteExample();
+        //    }
+
+        //    if (turretGun == null) Log.Error($"[RangedDPS] Turret {req.Def.defName} has no turret gun defined");
+        //    return turretGun;
+        //}
     }
 }

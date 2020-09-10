@@ -44,7 +44,7 @@ namespace RangedDPS
             var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
             float bestRange = DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
 
-            return DPSCalculator.GetRawRangedDPS(weapon) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn), 1f);
+            return DPSCalculator.GetRawRangedDPS(weapon, pawn) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn), 1f);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)

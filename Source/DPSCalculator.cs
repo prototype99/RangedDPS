@@ -41,7 +41,8 @@ namespace RangedDPS
         /// </summary>
         /// <returns>The raw ranged DPS of the weapon.</returns>
         /// <param name="weapon">The Thing to get the DPS of.</param>
-        public static float GetRawRangedDPS(Thing weapon)
+        /// <param name="shooter">The Pawn wielding the weapon, or null if we're just looking at a weapon in the abstract</param>
+        public static float GetRawRangedDPS(Thing weapon, Pawn shooter = null)
         {
             if (weapon == null)
             {
@@ -62,7 +63,10 @@ namespace RangedDPS
             // Not an error as unloaded mortars don't have projectiles
             int damage = projectile?.GetDamageAmount(weapon) ?? 0;
 
-            float fullCycleTime = shootVerb.warmupTime + weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true)
+            float aimFactor = shooter?.GetStatValue(StatDefOf.AimingDelayFactor, true) ?? 1f;
+
+            float fullCycleTime = (shootVerb.warmupTime * aimFactor)
+                    + weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true)
                     + ((shootVerb.burstShotCount - 1) * shootVerb.ticksBetweenBurstShots).TicksToSeconds();
             int totalDamage = shootVerb.burstShotCount * damage;
 

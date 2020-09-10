@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -32,7 +33,7 @@ namespace RangedDPS
                 weapon.GetStatValue(StatDefOf.AccuracyLong)
             }.Max();
 
-            return rawDps * bestAccuracy;
+            return rawDps * Math.Min(bestAccuracy, 1);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)

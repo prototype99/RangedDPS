@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
 
@@ -44,7 +45,7 @@ namespace RangedDPS
             var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
             float bestRange = DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
 
-            return DPSCalculator.GetRawRangedDPS(weapon) * DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn);
+            return DPSCalculator.GetRawRangedDPS(weapon) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn), 1f);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)

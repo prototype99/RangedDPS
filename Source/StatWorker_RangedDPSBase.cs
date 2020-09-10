@@ -32,7 +32,7 @@ namespace RangedDPS
             // Min Range
             float minRange = Math.Max(shootVerb.minRange, 1f);
             float minRangeHitChance = DPSCalculator.GetAdjustedHitChanceFactor(minRange, shootVerb, gun, shooter);
-            float minRangeDps = rawDps * minRangeHitChance;
+            float minRangeDps = rawDps * Math.Min(minRangeHitChance, 1f);
             stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));
 
             // Ranges between Min - Max, in steps of 5
@@ -40,13 +40,13 @@ namespace RangedDPS
             for (float range = startRange; range < shootVerb.range; range += 5)
             {
                 float hitChance = DPSCalculator.GetAdjustedHitChanceFactor(range, shootVerb, gun, shooter);
-                float dps = rawDps * hitChance;
+                float dps = rawDps * Math.Min(hitChance, 1f);
                 stringBuilder.AppendLine(FormatDPSRangeString(range, dps, hitChance));
             }
 
             // Max Range
             float maxRangeHitChance = DPSCalculator.GetAdjustedHitChanceFactor(shootVerb.range, shootVerb, gun, shooter);
-            float maxRangeDps = rawDps * maxRangeHitChance;
+            float maxRangeDps = rawDps * Math.Min(maxRangeHitChance, 1f);
             stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.range, maxRangeDps, maxRangeHitChance));
 
             return stringBuilder.ToString();

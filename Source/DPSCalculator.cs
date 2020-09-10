@@ -72,6 +72,8 @@ namespace RangedDPS
         /// <summary>
         /// Gets the adjusted hit chance factor of a shot.  This is equivalent to shootVerb.GetHitChanceFactor() unless
         /// a shooter is provided, in which case it will also be adjusted based on the shooter's hit chance.
+        /// 
+        /// This value can be greater than 1.0 in the case of weapons with overcapped accuracy.
         /// </summary>
         /// <returns>The adjusted hit chance factor.</returns>
         /// <param name="range">The range of the shot.</param>

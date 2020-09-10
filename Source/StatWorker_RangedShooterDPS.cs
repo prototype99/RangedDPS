@@ -21,8 +21,7 @@ namespace RangedDPS
         {
             if (!base.IsDisabledFor(thing))
             {
-                return StatDefOf.ShootingAccuracyPawn.Worker.IsDisabledFor(thing) &&
-                        StatDefOf.ShootingAccuracyTurret.Worker.IsDisabledFor(thing);
+                return StatDefOf.ShootingAccuracyPawn.Worker.IsDisabledFor(thing);
             }
             return true;
         }

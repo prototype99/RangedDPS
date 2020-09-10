@@ -8,6 +8,15 @@ namespace RangedDPS
     public class StatWorker_TurretShooterDPS : StatWorker_TurretDPSBase
     {
 
+        public override bool IsDisabledFor(Thing thing)
+        {
+            if (!base.IsDisabledFor(thing))
+            {
+                return StatDefOf.ShootingAccuracyTurret.Worker.IsDisabledFor(thing);
+            }
+            return true;
+        }
+
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
             if (!ShouldShowFor(req))

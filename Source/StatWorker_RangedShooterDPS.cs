@@ -12,7 +12,7 @@ namespace RangedDPS
         {
             if (base.ShouldShowFor(req))
             {
-                return req.Thing is Pawn pawn && (pawn?.equipment?.Primary?.def?.IsRangedWeapon ?? false);
+                return req.Thing is Pawn pawn && (GetPawnWeapon(pawn)?.def?.IsRangedWeapon ?? false);
             }
             return false;
         }
@@ -34,26 +34,18 @@ namespace RangedDPS
             }
 
             Pawn pawn = req.Thing as Pawn;
-            Thing weapon = GetPawnWeapon(pawn);
-            if (!(weapon?.def?.IsRangedWeapon ?? false))
-            {
-                Log.Error($"[RangedDPS] Tried to calculate the ranged DPS of pawn {pawn.Name} that doesn't have a ranged weapon equipped");
-                return 0f;
-            }
+            RangedWeaponStats weaponStats = GetWeaponStats(GetPawnWeapon(pawn));
 
-            var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
-            float bestRange = DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
-
-            return DPSCalculator.GetRawRangedDPS(weapon, pawn) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, weapon, pawn), 1f);
+            float optimalRange = weaponStats.FindOptimalRange(pawn);
+            return weaponStats.GetAdjustedDPS(optimalRange, pawn);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)
         {
             Pawn pawn = optionalReq.Thing as Pawn;
-            Thing weapon = GetPawnWeapon(pawn);
-            var shootVerb = DPSCalculator.GetShootVerb(weapon.def);
+            RangedWeaponStats weaponStats = GetWeaponStats(GetPawnWeapon(pawn));
 
-            int optimalRange = (int) DPSCalculator.FindOptimalRange(shootVerb, weapon, pawn);
+            int optimalRange = (int)weaponStats.FindOptimalRange(pawn);
 
             return string.Format("{0} ({1})",
                 value.ToStringByStyle(stat.toStringStyle, numberSense),
@@ -68,7 +60,8 @@ namespace RangedDPS
             }
 
             Pawn pawn = req.Thing as Pawn;
-            return DPSRangeBreakdown(GetPawnWeapon(pawn), pawn);
+            RangedWeaponStats weaponStats = GetWeaponStats(GetPawnWeapon(pawn));
+            return DPSRangeBreakdown(weaponStats, pawn);
         }
 
         public override IEnumerable<Dialog_InfoCard.Hyperlink> GetInfoCardHyperlinks(StatRequest statRequest)

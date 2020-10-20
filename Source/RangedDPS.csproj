@@ -46,8 +46,8 @@
     <Compile Include="StatWorker_TurretDPSBase.cs" />
     <Compile Include="StatWorker_TurretMaxDPS.cs" />
     <Compile Include="StatWorker_RangedShooterDPS.cs" />
-    <Compile Include="DPSCalculator.cs" />
     <Compile Include="StatWorker_TurretShooterDPS.cs" />
+    <Compile Include="RangedWeaponStats.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

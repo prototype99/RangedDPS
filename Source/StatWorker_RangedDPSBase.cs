@@ -7,11 +7,33 @@ namespace RangedDPS
 {
     public class StatWorker_RangedDPSBase : StatWorker
     {
-        protected static Thing GetWeaponThing(StatRequest req)
+        protected static RangedWeaponStats GetWeaponStats(StatRequest req)
         {
             Thing weapon = req.Thing ?? (req.Def as ThingDef)?.GetConcreteExample();
             if (weapon == null) Log.Error($"[RangedDPS] Could not find a valid weapon thing when trying to caluculate the stat for {req.Def.defName}");
-            return weapon;
+            return GetWeaponStats(weapon);
+        }
+
+        /// <summary>
+        /// Calculates a stats breakdown of the given ranged weapon.
+        /// Logs an error and returns null if the thing is null or not a ranged weapon.
+        /// </summary>
+        /// <returns>The stats of the passed-in weapon.</returns>
+        /// <param name="weapon">The turret to get stats for.</param>
+        protected static RangedWeaponStats GetWeaponStats(Thing weapon)
+        {
+            if (weapon == null)
+            {
+                Log.Error($"[RangedDPS] Tried to get the ranged weapon stats of a null weapon");
+                return null;
+            }
+            if (!weapon.def.IsRangedWeapon)
+            {
+                Log.Error($"[RangedDPS] Tried to get the ranged weapon stats of {weapon.def.defName}, which is not a ranged weapon");
+                return null;
+            }
+
+            return new RangedWeaponStats(weapon);
         }
 
         /// <summary>
@@ -21,33 +43,30 @@ namespace RangedDPS
         /// <returns>A string providing a breakdown of the performance of the given weapon at various ranges.</returns>
         /// <param name="gun">The gun to caluclate a breakdown for.</param>
         /// <param name="shooter">(Optional) The shooter (pawn or turret) using the weapon.</param>
-        protected static string DPSRangeBreakdown(Thing gun, Thing shooter = null)
+        protected static string DPSRangeBreakdown(RangedWeaponStats gun, Thing shooter = null)
         {
-            float rawDps = DPSCalculator.GetRawRangedDPS(gun);
-            var shootVerb = DPSCalculator.GetShootVerb(gun.def);
-
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("StatsReport_RangedDPSAccuracy".Translate());
 
             // Min Range
-            float minRange = Math.Max(shootVerb.minRange, 1f);
-            float minRangeHitChance = DPSCalculator.GetAdjustedHitChanceFactor(minRange, shootVerb, gun, shooter);
-            float minRangeDps = rawDps * Math.Min(minRangeHitChance, 1f);
+            float minRange = Math.Max(gun.MinRange, 1f);
+            float minRangeHitChance = gun.GetAdjustedHitChanceFactor(minRange, shooter);
+            float minRangeDps = gun.GetAdjustedDPS(minRange, shooter);
             stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));
 
             // Ranges between Min - Max, in steps of 5
             float startRange = (float)Math.Ceiling(minRange / 5) * 5;
-            for (float range = startRange; range < shootVerb.range; range += 5)
+            for (float range = startRange; range < gun.MaxRange; range += 5)
             {
-                float hitChance = DPSCalculator.GetAdjustedHitChanceFactor(range, shootVerb, gun, shooter);
-                float dps = rawDps * Math.Min(hitChance, 1f);
+                float hitChance = gun.GetAdjustedHitChanceFactor(range, shooter);
+                float dps = gun.GetAdjustedDPS(range, shooter);
                 stringBuilder.AppendLine(FormatDPSRangeString(range, dps, hitChance));
             }
 
             // Max Range
-            float maxRangeHitChance = DPSCalculator.GetAdjustedHitChanceFactor(shootVerb.range, shootVerb, gun, shooter);
-            float maxRangeDps = rawDps * Math.Min(maxRangeHitChance, 1f);
-            stringBuilder.AppendLine(FormatDPSRangeString(shootVerb.range, maxRangeDps, maxRangeHitChance));
+            float maxRangeHitChance = gun.GetAdjustedHitChanceFactor(gun.MaxRange, shooter);
+            float maxRangeDps = gun.GetAdjustedDPS(gun.MaxRange, shooter);
+            stringBuilder.AppendLine(FormatDPSRangeString(gun.MaxRange, maxRangeDps, maxRangeHitChance));
 
             return stringBuilder.ToString();
         }

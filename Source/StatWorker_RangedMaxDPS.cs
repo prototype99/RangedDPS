@@ -21,7 +21,7 @@ namespace RangedDPS
                 return 0f;
             }
 
-            return DPSCalculator.GetRawRangedDPS(GetWeaponThing(req));
+            return GetWeaponStats(req).GetRawDPS();
         }
 
     }

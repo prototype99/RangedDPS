@@ -42,7 +42,7 @@ namespace RangedDPS
         /// <returns>The raw ranged DPS of the weapon.</returns>
         /// <param name="weapon">The Thing to get the DPS of.</param>
         /// <param name="shooter">The Pawn wielding the weapon, or null if we're just looking at a weapon in the abstract</param>
-        public static float GetRawRangedDPS(Thing weapon, Pawn shooter = null)
+        public static float GetRawRangedDPS(Thing weapon, Pawn shooter = null, Building_TurretGun turret = null)
         {
             if (weapon == null)
             {
@@ -64,10 +64,16 @@ namespace RangedDPS
             int damage = projectile?.GetDamageAmount(weapon) ?? 0;
 
             float aimFactor = shooter?.GetStatValue(StatDefOf.AimingDelayFactor, true) ?? 1f;
+            float warmup = turret?.def?.building?.turretBurstWarmupTime ?? shootVerb.warmupTime;
+            float cooldown = (turret != null) ? TurretBurstCooldown(turret) : weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true);
 
-            float fullCycleTime = (shootVerb.warmupTime * aimFactor)
-                    + weapon.GetStatValue(StatDefOf.RangedWeapon_Cooldown, true)
+            float fullCycleTime = (warmup * aimFactor)
+                    + cooldown
                     + ((shootVerb.burstShotCount - 1) * shootVerb.ticksBetweenBurstShots).TicksToSeconds();
+
+            if (turret != null) {
+                fullCycleTime = Math.Max(fullCycleTime, 10.TicksToSeconds()); // Turrets attempt to fire at most once every 10 ticks no matter what
+            }
             int totalDamage = shootVerb.burstShotCount * damage;
 
             return totalDamage / fullCycleTime;
@@ -112,6 +118,16 @@ namespace RangedDPS
             int minRange = (int) Math.Max(1.0, Math.Ceiling(shootVerb.minRange));
             int maxRange = (int) Math.Floor(shootVerb.range);
             return Enumerable.Range(minRange, maxRange).MaxBy(r => GetAdjustedHitChanceFactor(r, shootVerb, weapon, shooter));
+        }
+
+        // Copied from Building
+        public static float TurretBurstCooldown(Building_TurretGun turret)
+        {
+            if (turret.def.building.turretBurstCooldownTime >= 0f)
+            {
+                return turret.def.building.turretBurstCooldownTime;
+            }
+            return turret.AttackVerb.verbProps.defaultCooldownTime;
         }
     }
 }

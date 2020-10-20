@@ -28,7 +28,7 @@ namespace RangedDPS
             var shootVerb = DPSCalculator.GetShootVerb(turret.gun.def);
             float bestRange = DPSCalculator.FindOptimalRange(shootVerb, turret.gun, turret);
 
-            return DPSCalculator.GetRawRangedDPS(turret.gun) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, turret.gun, turret), 1f);
+            return DPSCalculator.GetRawRangedDPS(turret.gun, turret: turret) * Math.Min(DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, turret.gun, turret), 1f);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)

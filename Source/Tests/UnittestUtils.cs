@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using System.Linq;
 using RimTest;
 using RimWorld;
@@ -63,3 +64,4 @@ namespace RangedDPS.Tests
         }
     }
 }
+#endif

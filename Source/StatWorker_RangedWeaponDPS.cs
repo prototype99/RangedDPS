@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -22,28 +23,27 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing weapon = GetWeaponThing(req);
-            float rawDps = DPSCalculator.GetRawRangedDPS(weapon);
+            RangedWeaponStats weaponStats = GetWeaponStats(req);
 
             float bestAccuracy = new[] {
-                weapon.GetStatValue(StatDefOf.AccuracyTouch),
-                weapon.GetStatValue(StatDefOf.AccuracyShort),
-                weapon.GetStatValue(StatDefOf.AccuracyMedium),
-                weapon.GetStatValue(StatDefOf.AccuracyLong)
+                weaponStats.AccuracyTouch,
+                weaponStats.AccuracyShort,
+                weaponStats.AccuracyMedium,
+                weaponStats.AccuracyLong
             }.Max();
 
-            return rawDps * bestAccuracy;
+            return weaponStats.GetRawDPS() * Math.Min(bestAccuracy, 1);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)
         {
-            Thing weapon = GetWeaponThing(optionalReq);
+            RangedWeaponStats weaponStats = GetWeaponStats(optionalReq);
 
             (float, int) optimalRange = new[] {
-                (weapon.GetStatValue(StatDefOf.AccuracyTouch), (int) ShootTuning.DistTouch),
-                (weapon.GetStatValue(StatDefOf.AccuracyShort), (int) ShootTuning.DistShort),
-                (weapon.GetStatValue(StatDefOf.AccuracyMedium), (int) ShootTuning.DistMedium),
-                (weapon.GetStatValue(StatDefOf.AccuracyLong), (int) ShootTuning.DistLong)
+                (weaponStats.AccuracyTouch, (int) ShootTuning.DistTouch),
+                (weaponStats.AccuracyShort, (int) ShootTuning.DistShort),
+                (weaponStats.AccuracyMedium, (int) ShootTuning.DistMedium),
+                (weaponStats.AccuracyLong, (int) ShootTuning.DistLong)
             }.MaxBy(acc => acc.Item1);
 
             return string.Format("{0} ({1})",
@@ -58,7 +58,7 @@ namespace RangedDPS
                 return "";
             }
 
-            return DPSRangeBreakdown(GetWeaponThing(req));
+            return DPSRangeBreakdown(GetWeaponStats(req));
         }
 
     }

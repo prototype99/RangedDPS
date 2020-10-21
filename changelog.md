@@ -42,3 +42,24 @@
 - Turrets' old "Ranged damage per second" stat has been renamed to "Weapon ranged DPS", to make it clear it's only based on the turret's weapon and does not include the shooting accuracy of the mount.
 - "Ranged damage per second" for guns has been renamed "Average ranged DPS" to differentiate it from the "Ranged DPS" stat on pawns.
 - "Max ranged damage per second" has been renamed "Max ranged DPS" to be consistent with the other stat names
+
+# v1.2.1 - Misc Fixes
+**Bugfixes**
+- Cap hit chance at 100% when calculating DPS to avoid showing impossibly high DPS in cases where hit chance is greater than 100%.
+  - Note: >100% accuracy is not possible in vanilla but is possible with mods, e.g. Overcapped Accuracy
+  - Note 2:  Bonus accuracy is still applied to the intermediate hit chance calculations.  Only if the final hit chance accounting for all factors exceeds 100% will it be capped, since at that point all shots are guaranteed to hit and the extra accuracy is wasted.
+- Factor in pawn's aiming time stat when calculating a pawn's ranged DPS
+  - This should fix Trigger-Happy and Careful Shooter traits showing incorrect DPS values
+- Use the correct warmup and cooldown values when calculating turret DPS.
+  - This should fix certain modded turrets showing incorrect DPS values (particularly Simple Turrets, but probably other mods as well).
+
+**Changes**
+- Updated the About.xml description and the README to match what's already on the Steam Workshop page
+
+**Internal Changes**
+- Major refactor and cleanup of the DPS calculation code.  This shouldn't have any visible effect but makes my life easier :)
+  - As with all major rewrites, there's a chance new bugs have been introduced.  Report any found bugs on the workshop page or via Github
+- Added several unit tests using RimTest to validate the basic DPS calculations (only in the debug build)
+
+**Known Issues**
+- Modded turrets with extremely low full-cycle times (warmup + burst time + cooldown is less than 10 ticks/0.1333 seconds) will show higher DPS values than what they actually achieve in gameplay.  This is because in vanilla, turrets will only ever attempt to fire a burst every 10th tick.

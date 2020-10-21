@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -15,28 +16,27 @@ namespace RangedDPS
                 return 0f;
             }
 
-            Thing turretGun = GetTurretWeapon(req);
-            float rawDps = DPSCalculator.GetRawRangedDPS(turretGun);
+            RangedWeaponStats weaponStats = GetTurretStats(req);
 
             float bestAccuracy = new[] {
-                turretGun.GetStatValue(StatDefOf.AccuracyTouch),
-                turretGun.GetStatValue(StatDefOf.AccuracyShort),
-                turretGun.GetStatValue(StatDefOf.AccuracyMedium),
-                turretGun.GetStatValue(StatDefOf.AccuracyLong)
+                weaponStats.AccuracyTouch,
+                weaponStats.AccuracyShort,
+                weaponStats.AccuracyMedium,
+                weaponStats.AccuracyLong
             }.Max();
 
-            return rawDps * bestAccuracy;
+            return weaponStats.GetRawDPS() * Math.Min(bestAccuracy, 1f);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)
         {
-            Thing turretGun = GetTurretWeapon(optionalReq);
+            RangedWeaponStats weaponStats = GetTurretStats(optionalReq);
 
             (float, int) optimalRange = new[] {
-                (turretGun.GetStatValue(StatDefOf.AccuracyTouch), (int) ShootTuning.DistTouch),
-                (turretGun.GetStatValue(StatDefOf.AccuracyShort), (int) ShootTuning.DistShort),
-                (turretGun.GetStatValue(StatDefOf.AccuracyMedium), (int) ShootTuning.DistMedium),
-                (turretGun.GetStatValue(StatDefOf.AccuracyLong), (int) ShootTuning.DistLong)
+                (weaponStats.AccuracyTouch, (int) ShootTuning.DistTouch),
+                (weaponStats.AccuracyShort, (int) ShootTuning.DistShort),
+                (weaponStats.AccuracyMedium, (int) ShootTuning.DistMedium),
+                (weaponStats.AccuracyLong, (int) ShootTuning.DistLong)
             }.MaxBy(acc => acc.Item1);
 
             return string.Format("{0} ({1})",
@@ -51,7 +51,8 @@ namespace RangedDPS
                 return "";
             }
 
-            return DPSRangeBreakdown(GetTurretWeapon(req));
+            RangedWeaponStats weaponStats = GetTurretStats(req);
+            return DPSRangeBreakdown(weaponStats);
         }
 
     }

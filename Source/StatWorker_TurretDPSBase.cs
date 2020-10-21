@@ -35,5 +35,27 @@ namespace RangedDPS
         {
             return GetTurret(req).gun;
         }
+
+        protected static RangedWeaponStats GetTurretStats(StatRequest req)
+        {
+            return GetTurretStats(GetTurret(req));
+        }
+
+        /// <summary>
+        /// Calculates a stats breakdown of the given turret.
+        /// Logs an error and returns null if the thing is null.
+        /// </summary>
+        /// <returns>The stats of the passed-in turret.</returns>
+        /// <param name="turret">The turret to get stats for.</param>
+        protected static RangedWeaponStats GetTurretStats(Building_TurretGun turret)
+        {
+            if (turret == null)
+            {
+                Log.Error($"[RangedDPS] Tried to get the ranged weapon stats of a null turret");
+                return null;
+            }
+
+            return new RangedWeaponStats(turret);
+        }
     }
 }

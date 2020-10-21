@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using System;
+using RimWorld;
 using Verse;
 
 namespace RangedDPS
@@ -6,6 +7,15 @@ namespace RangedDPS
 
     public class StatWorker_TurretShooterDPS : StatWorker_TurretDPSBase
     {
+
+        public override bool IsDisabledFor(Thing thing)
+        {
+            if (!base.IsDisabledFor(thing))
+            {
+                return StatDefOf.ShootingAccuracyTurret.Worker.IsDisabledFor(thing);
+            }
+            return true;
+        }
 
         public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
         {
@@ -15,18 +25,18 @@ namespace RangedDPS
             }
 
             Building_TurretGun turret = GetTurret(req);
-            var shootVerb = DPSCalculator.GetShootVerb(turret.gun.def);
-            float bestRange = DPSCalculator.FindOptimalRange(shootVerb, turret.gun, turret);
+            RangedWeaponStats weaponStats = GetTurretStats(req);
 
-            return DPSCalculator.GetRawRangedDPS(turret.gun) * DPSCalculator.GetAdjustedHitChanceFactor(bestRange, shootVerb, turret.gun, turret);
+            float optimalRange = weaponStats.FindOptimalRange(turret);
+            return weaponStats.GetAdjustedDPS(optimalRange, turret);
         }
 
         public override string GetStatDrawEntryLabel(StatDef stat, float value, ToStringNumberSense numberSense, StatRequest optionalReq, bool finalized = true)
         {
             Building_TurretGun turret = GetTurret(optionalReq);
-            var shootVerb = DPSCalculator.GetShootVerb(turret.gun.def);
+            RangedWeaponStats weaponStats = GetTurretStats(optionalReq);
 
-            int optimalRange = (int)DPSCalculator.FindOptimalRange(shootVerb, turret.gun, turret);
+            int optimalRange = (int)weaponStats.FindOptimalRange(turret);
 
             return string.Format("{0} ({1})",
                 value.ToStringByStyle(stat.toStringStyle, numberSense),
@@ -41,7 +51,9 @@ namespace RangedDPS
             }
 
             Building_TurretGun turret = GetTurret(req);
-            return DPSRangeBreakdown(turret.gun, turret);
+            RangedWeaponStats weaponStats = GetTurretStats(req);
+
+            return DPSRangeBreakdown(weaponStats, turret);
         }
 
     }

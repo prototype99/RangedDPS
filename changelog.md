@@ -63,3 +63,7 @@
 
 **Known Issues**
 - Modded turrets with extremely low full-cycle times (warmup + burst time + cooldown is less than 10 ticks/0.1333 seconds) will show higher DPS values than what they actually achieve in gameplay.  This is because in vanilla, turrets will only ever attempt to fire a burst every 10th tick.
+
+# v1.2.2 - Hotfix
+**Bugfixes**
+- Fix broken debug menu

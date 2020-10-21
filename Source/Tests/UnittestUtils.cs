@@ -23,10 +23,17 @@ namespace RangedDPS.Tests
 
         public static Pawn GetTestPawn(int shootSkill = 10)
         {
-            PawnKindDef kindDef = DefDatabase<PawnKindDef>.GetNamed("TestPawn");
+            PawnKindDef kindDef = DefDatabase<PawnKindDef>.GetNamed("StrangerInBlack");
             Faction faction = FactionUtility.DefaultFactionFrom(kindDef.defaultFactionType);
 
+            TraitDef shootingAccuracy = DefDatabase<TraitDef>.GetNamed("ShootingAccuracy");
+
             Pawn pawn = PawnGenerator.GeneratePawn(kindDef, faction);
+            while (pawn.story.traits.HasTrait(shootingAccuracy))
+            {
+                pawn = PawnGenerator.GeneratePawn(kindDef, faction);
+            } 
+
             pawn.health.Reset();
 
             var shooting = (from skill in pawn.skills.skills

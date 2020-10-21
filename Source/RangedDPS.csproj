@@ -36,6 +36,11 @@
       <HintPath>..\..\..\..\..\..\mnt\electromagic\SteamLibrary\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="RimTest">
+      <HintPath>..\..\..\..\..\..\mnt\electromagic\SteamLibrary\steamapps\workshop\content\294100\2199316917\1.2\Assemblies\RimTest.dll</HintPath>
+      <Private>False</Private>
+      <IncludeInPackage>false</IncludeInPackage>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="StatWorker_RangedWeaponDPS.cs" />
@@ -48,6 +53,11 @@
     <Compile Include="StatWorker_RangedShooterDPS.cs" />
     <Compile Include="StatWorker_TurretShooterDPS.cs" />
     <Compile Include="RangedWeaponStats.cs" />
+    <Compile Include="Tests\TestRangedWeaponStats.cs" />
+    <Compile Include="Tests\UnittestUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

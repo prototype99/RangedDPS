@@ -86,7 +86,7 @@ namespace RangedDPS
         /// </summary>
         /// <returns>The raw ranged DPS of the weapon.</returns>
         /// <param name="shooter">(Optional) The Pawn wielding the weapon, or null if we're just looking at a weapon in the abstract</param>
-        public float FullCycleTime(Pawn shooter = null)
+        public float GetFullCycleTime(Pawn shooter = null)
         {
             float aimFactor = shooter?.GetStatValue(StatDefOf.AimingDelayFactor, true) ?? 1f;
             return (warmup * aimFactor) + cooldown + ((BurstShotCount - 1) * BurstDelayTicks).TicksToSeconds();
@@ -100,7 +100,7 @@ namespace RangedDPS
         /// <param name="shooter">(Optional) The Pawn wielding the weapon, or null if we're just looking at a weapon in the abstract</param>
         public float GetRawDPS(Pawn shooter = null)
         {
-            return shotDamage * BurstShotCount / FullCycleTime(shooter);
+            return shotDamage * BurstShotCount / GetFullCycleTime(shooter);
         }
 
         /// <summary>

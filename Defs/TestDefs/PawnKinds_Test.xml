@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <PawnKindDef>
+    <defName>TestPawn</defName>
+    <label>test subject</label>
+    <labelPlural>test subjects</labelPlural>
+    <race>Human</race>
+    <defaultFactionType>OutlanderCivil</defaultFactionType>
+    <combatPower>60</combatPower>
+    <minGenerationAge>20</minGenerationAge>
+    <maxGenerationAge>30</maxGenerationAge>
+    <isFighter>true</isFighter>
+    <chemicalAddictionChance>0.0</chemicalAddictionChance>
+    <backstoryCryptosleepCommonality>0.05</backstoryCryptosleepCommonality>
+    <backstoryFiltersOverride>
+      <li>
+        <categories>
+          <li>Offworld</li>
+          <li>Outlander</li>
+          <li>Outsider</li>
+        </categories>
+      </li>
+    </backstoryFiltersOverride>
+    <requiredWorkTags>
+      <li>Violent</li>
+    </requiredWorkTags>
+    <itemQuality>Good</itemQuality>
+    <apparelIgnoreSeasons>true</apparelIgnoreSeasons>
+    <disallowedTraits>
+      <li>Brawler</li>
+      <li>ShootingAccuracy</li>
+    </disallowedTraits>
+  </PawnKindDef>
+
+</Defs>

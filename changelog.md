@@ -1,4 +1,4 @@
-# v1.3.0 - 1.3 Compatibility
+# v1.3.0 - Rimworld 1.3 support
 **Features**
 - Updated to 1.3 (Also still compatible with 1.2)
 

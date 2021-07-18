@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using RangedDPS.StatUtilities;
 using RimWorld;
-using Verse;
 
 namespace RangedDPS
 {

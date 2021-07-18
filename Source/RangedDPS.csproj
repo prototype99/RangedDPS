@@ -54,7 +54,7 @@
     <Compile Include="StatWorker_TurretShooterDPS.cs" />
     <Compile Include="Tests\TestRangedWeaponStats.cs" />
     <Compile Include="Tests\UnittestUtils.cs" />
-    <Compile Include="StatWorker_TurretResourcePerDamage.cs" />
+    <Compile Include="StatWorker_TurretDamagePerResource.cs" />
     <Compile Include="StatUtilities\TurretStats.cs" />
     <Compile Include="StatUtilities\RangedWeaponStats.cs" />
   </ItemGroup>

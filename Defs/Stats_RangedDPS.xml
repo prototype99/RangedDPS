@@ -50,7 +50,7 @@
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
     <forInformationOnly>true</forInformationOnly>
-    <displayPriorityInCategory>5052</displayPriorityInCategory>
+    <displayPriorityInCategory>5053</displayPriorityInCategory>
   </StatDef>
 
   <StatDef>
@@ -63,7 +63,7 @@
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
     <forInformationOnly>true</forInformationOnly>
-    <displayPriorityInCategory>5051</displayPriorityInCategory>
+    <displayPriorityInCategory>5052</displayPriorityInCategory>
   </StatDef>
 
   <StatDef>
@@ -71,6 +71,19 @@
     <workerClass>RangedDPS.StatWorker_TurretMaxDPS</workerClass>
     <label>max ranged DPS</label>
     <description>Maximum potential damage dealt per second in ranged combat, assuming all shots were to hit.\n\nThis stat doesn't factor in accuracy or target defenses like cover and armor, so the actual value will be lower.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <forInformationOnly>true</forInformationOnly>
+    <displayPriorityInCategory>5051</displayPriorityInCategory>
+  </StatDef>
+  
+  <StatDef>
+    <defName>RangedTurret_DamagePerResource</defName>
+    <workerClass>RangedDPS.StatWorker_TurretDamagePerResource</workerClass>
+    <label>damage per resource</label>
+    <description>The average amount of damage this turret can deal for every unit of resource used for ammo or barrel replenishment, including missed shots.  Higher values mean the turret is more resource-efficient at dealing damage.\n\nThis stat refers to the actual amount of raw resources used, not the amount of "barrel durability" used up.  It does not account for the resources used to build the turret, only the resources used when the turret shoots.</description>
     <category>Weapon</category>
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>

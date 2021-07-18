@@ -53,7 +53,7 @@ namespace RangedDPS
             float minRange = Math.Max(gun.MinRange, 1f);
             float minRangeHitChance = gun.GetAdjustedHitChanceFactor(minRange, shooter);
             float minRangeDps = gun.GetAdjustedDPS(minRange, shooter);
-            stringBuilder.AppendLine(FormatDPSRangeString(minRange, minRangeDps, minRangeHitChance));
+            stringBuilder.AppendLine(FormatValueRangeString(minRange, minRangeDps, minRangeHitChance));
 
             // Ranges between Min - Max, in steps of 5
             float startRange = (float)Math.Ceiling(minRange / 5) * 5;
@@ -61,22 +61,22 @@ namespace RangedDPS
             {
                 float hitChance = gun.GetAdjustedHitChanceFactor(range, shooter);
                 float dps = gun.GetAdjustedDPS(range, shooter);
-                stringBuilder.AppendLine(FormatDPSRangeString(range, dps, hitChance));
+                stringBuilder.AppendLine(FormatValueRangeString(range, dps, hitChance));
             }
 
             // Max Range
             float maxRangeHitChance = gun.GetAdjustedHitChanceFactor(gun.MaxRange, shooter);
             float maxRangeDps = gun.GetAdjustedDPS(gun.MaxRange, shooter);
-            stringBuilder.AppendLine(FormatDPSRangeString(gun.MaxRange, maxRangeDps, maxRangeHitChance));
+            stringBuilder.AppendLine(FormatValueRangeString(gun.MaxRange, maxRangeDps, maxRangeHitChance));
 
             return stringBuilder.ToString();
         }
 
-        protected static string FormatDPSRangeString(float range, float dps, float hitChance)
+        protected static string FormatValueRangeString(float range, float value, float hitChance)
         {
             return string.Format("{0} {1,2}: {2,5:F2} ({3:P1})",
                     "distance".Translate().CapitalizeFirst(),
-                    range, dps, hitChance);
+                    range, value, hitChance);
         }
 
     }

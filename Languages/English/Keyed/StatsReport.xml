@@ -2,6 +2,7 @@
 <LanguageData>
 
   <StatsReport_RangedDPSAccuracy>Average DPS and accuracy at various ranges:</StatsReport_RangedDPSAccuracy>
+  <StatsReport_RangedDPSResourceAccuracy>Average damage-per-resource and accuracy at various ranges:</StatsReport_RangedDPSResourceAccuracy>
   <StatsReport_RangedDPSOptimalRange>at {0} tiles</StatsReport_RangedDPSOptimalRange>
 
 </LanguageData>

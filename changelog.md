@@ -1,3 +1,10 @@
+# v1.4.0 - Damage Per Resource
+**Features**
+- Added two new stats to turrets: Damage Per Resource and Max Damage Per Resource.  Thanks to /u/Hanif_Shakiba on Reddit for the inspiration.
+- These stats measure how resource-efficient turrets are -- specifically, this is how much damage you can expect out of a turret for each unit of resource spent on rearming it.
+- Like the DPS stats, Max Damage Per Resource measures the theoretical maximum amount of damage you can get out of a single unit of resource.  Damage Per Resource is generally a more realistic number for measuring DPR
+
+
 # v1.3.0 - Rimworld 1.3 support
 **Features**
 - Updated to 1.3 (Also still compatible with 1.2)

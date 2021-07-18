@@ -45,9 +45,17 @@ This stat is the equivalent to "Ranged DPS" for pawns. It represents the DPS thi
 
 The stat lists the range with the highest DPS -- click it for a detailed chart that covers the full range of the weapon. Note that this can be a different range than the weapon's optimal range!
 
+&lt;size=16&gt;Damage per resource&lt;/size&gt;
+Most turrets require resources to operate in the form of barrel refurbishment or ammunition. This stat measures how efficient the turret is at turning those resources into damage. For every unit of resource (e.g. steel) spent rearming the turret, you can expect about this much damage done at the turret's optimal range, accounting for missed shots.
+
+The stat lists the range with the highest damage per resource -- click it for a detailed chart that covers the full range of the turret.
+
+&lt;size=16&gt;Max damage per resource&lt;/size&gt;
+This stat represents the maximum possible damage per unit of resource the turret could achieve if every bullet hit.
+
 &lt;size=24&gt;Compatibility Notes&lt;/size&gt;
 
-This mod should be compatible with all XML-only weapon mods. It will almost certainly NOT give accurate results for modded weapons with exotic abilities and may even cause errors.
+This mod should be compatible with all XML-only weapon mods. It will almost certainly NOT give accurate results for modded weapons with exotic abilities and may even cause errors. If you find a weapon that isn't compatible (meaning it either calculates the wrong DPS or causes errors), let me know in the comments below as I may be able to fix it.
 
 200% Not Compatible With Combat Extended™
 Seriously, don't even ask. CE completely reworks ranged combat. A separate version would be need to be rewritten from the ground up to support CE</description>

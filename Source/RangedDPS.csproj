@@ -52,12 +52,15 @@
     <Compile Include="StatWorker_TurretMaxDPS.cs" />
     <Compile Include="StatWorker_RangedShooterDPS.cs" />
     <Compile Include="StatWorker_TurretShooterDPS.cs" />
-    <Compile Include="RangedWeaponStats.cs" />
     <Compile Include="Tests\TestRangedWeaponStats.cs" />
     <Compile Include="Tests\UnittestUtils.cs" />
+    <Compile Include="StatWorker_TurretResourcePerDamage.cs" />
+    <Compile Include="StatUtilities\TurretStats.cs" />
+    <Compile Include="StatUtilities\RangedWeaponStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
+    <Folder Include="StatUtilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

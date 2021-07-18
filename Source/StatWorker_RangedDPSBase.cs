@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using RangedDPS.StatUtilities;
 using RimWorld;
 using Verse;
 

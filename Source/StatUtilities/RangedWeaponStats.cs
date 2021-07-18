@@ -3,7 +3,7 @@ using System.Linq;
 using RimWorld;
 using Verse;
 
-namespace RangedDPS
+namespace RangedDPS.StatUtilities
 {
     public class RangedWeaponStats
     {

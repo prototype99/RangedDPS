@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using RangedDPS.StatUtilities;
+using RimWorld;
 using Verse;
 
 namespace RangedDPS

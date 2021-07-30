@@ -30,7 +30,16 @@ This stat is the equivalent to "Average ranged DPS" of weapons, and represents t
 #### Ranged DPS
 This stat is the equivalent to "Ranged DPS" for pawns. It represents the DPS this turret can achieve, factoring in both the inherent accuracy of the turret's weapon and the shooting accuracy of the turret mount. This is the most accurate DPS stat available and is the one you should use when trying to see how effective this turret is, or how it compares to a pawn's Ranged DPS.
 
-The stat lists the range with the highest DPS -- click it for a detailed chart that covers the full range of the weapon. Note that this can be a different range than the weapon's optimal range!
+The stat lists the range with the highest DPS -- click it for a detailed chart that covers the full range of the turret. Note that this can be a different range than the turret gun's optimal range!
+
+### Damage per resource
+Most turrets require resources to operate in the form of barrel refurbishment or ammunition. This stat measures how efficient the turret is at turning those resources into damage. For every unit of resource (e.g. steel) spent rearming the turret, you can expect about this much damage done at the turret's optimal range, accounting for missed shots.
+
+The stat lists the range with the highest damage per resource -- click it for a detailed chart that covers the full range of the turret.
+
+### Max damage per resource
+This stat represents the maximum possible damage per unit of resource the turret could achieve if every bullet hit.
+
 
 ## Compatibility Notes
 
@@ -38,3 +47,14 @@ This mod should be compatible with all XML-only weapon mods. It will almost cert
 
 200% Not Compatible With Combat Extended™
 Seriously, don't even ask. CE completely reworks ranged combat. A separate version would be need to be rewritten from the ground up to support CE
+
+
+## Translation Credits
+
+- Korean translation supplied by inbae on Steam
+
+Feel free to submit fanmade translations for your preferred language!  Or corrections to existing translations, for that matter.
+
+## License Info
+RangedDPS is licensed under the MIT License, which can be found in full the LICENSE file.
+Fanmade translations are provided by their respective authors and are also licensed under the MIT License unless otherwise noted.

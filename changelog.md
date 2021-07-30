@@ -1,3 +1,8 @@
+# V1.5.0 - Korean Translation
+**Features**
+- Added a Korean translation, supplied by inbae on steam.
+
+
 # v1.4.0 - Damage Per Resource
 **Features**
 - Added two new stats to turrets: Damage Per Resource and Max Damage Per Resource.  Thanks to /u/Hanif_Shakiba on Reddit for the inspiration.

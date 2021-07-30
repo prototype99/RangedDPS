@@ -58,5 +58,11 @@ This stat represents the maximum possible damage per unit of resource the turret
 This mod should be compatible with all XML-only weapon mods. It will almost certainly NOT give accurate results for modded weapons with exotic abilities and may even cause errors. If you find a weapon that isn't compatible (meaning it either calculates the wrong DPS or causes errors), let me know in the comments below as I may be able to fix it.
 
 200% Not Compatible With Combat Extended™
-Seriously, don't even ask. CE completely reworks ranged combat. A separate version would be need to be rewritten from the ground up to support CE</description>
+Seriously, don't even ask. CE completely reworks ranged combat. A separate version would be need to be rewritten from the ground up to support CE
+
+&lt;size=24&gt;Translation Credits&lt;/size&gt;
+
+- Korean translation supplied by inbae on Steam
+
+Feel free to submit fanmade translations for your preferred language!  Or corrections to existing translations, for that matter.</description>
 </ModMetaData>

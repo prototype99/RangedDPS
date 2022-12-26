@@ -78,10 +78,6 @@ Seriously, don't even ask.  CE completely reworks ranged combat.  A separate ver
 
 Feel free to submit translations for your preferred language!  Or corrections/updates to existing translations, for that matter.  Unfortunately I can't do much to maintain these translations myself, so I'll be relying on fan submissions to keep them updated.  Pull requests on Github are best, but I can also accept the raw files.
 
-# Github Link
-
-
-https://github.com/RadHazard/RimworldRangedDPS
 ![Image](https://i.imgur.com/PwoNOj4.png)
 
 
@@ -94,3 +90,4 @@ https://github.com/RadHazard/RimworldRangedDPS
 -  If you have the solution for a problem, please post it to the GitHub repository.
 
 
+https://steamcommunity.com/sharedfiles/filedetails/changelog/2887818980]Last updated 2022-12-26

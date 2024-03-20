@@ -61,7 +61,7 @@ public class StatWorker_RangedShooterDPS : StatWorker_RangedDPSBase
 
     public override IEnumerable<Dialog_InfoCard.Hyperlink> GetInfoCardHyperlinks(StatRequest statRequest)
     {
-        if (statRequest.Thing is Pawn { equipment.Primary: { } } pawn)
+        if (statRequest.Thing is Pawn { equipment.Primary: not null } pawn)
         {
             yield return new Dialog_InfoCard.Hyperlink(pawn.equipment.Primary);
         }

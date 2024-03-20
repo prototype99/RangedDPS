@@ -10,13 +10,9 @@ public class StatWorker_TurretDamagePerResource : StatWorker_TurretDPSBase
 {
     public override bool ShouldShowFor(StatRequest req)
     {
-        if (!base.ShouldShowFor(req))
-        {
-            return false;
-        }
-
-        // Don't show resource usage for turrets without fuel
-        return GetTurretStats(req).NeedsFuel;
+        return base.ShouldShowFor(req) &&
+               // Don't show resource usage for turrets without fuel
+               GetTurretStats(req).NeedsFuel;
     }
 
     public override float GetValueUnfinalized(StatRequest req, bool applyPostProcess = true)
